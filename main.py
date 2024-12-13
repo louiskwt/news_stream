@@ -9,8 +9,6 @@ def bbc_scrapper():
 
         respose = requests.get(url)
         respose.raise_for_status()
-
-        print(respose)
         soup = BeautifulSoup(respose.content, 'html.parser')
 
         headlines = []
