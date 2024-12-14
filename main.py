@@ -14,7 +14,7 @@ def bbc_scrapper():
         headlines = []
         for link in soup.find_all('a', class_='sc-2e6baa30-0 gILusN'):
             text = link.text.strip()
-            if text not in ['British Broadcasting Corporation', 'Video', 'Sport', 'Weather', 'Newsletters']:
+            if text not in ['British Broadcasting Corporation', 'Video', 'Sport', 'Home', 'Audio', 'Weather', 'Newsletters']:
                 href = 'https://www.bbc.com' + link['href']
                 headlines.append({'title': text, 'link': href})
         
