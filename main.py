@@ -24,11 +24,35 @@ def bbc_scrapper():
         print(f'Error scraping BBC: {e}')
         return []
 
+def guardian_scrapper():
+    try:
+        url = "https://www.theguardian.com/international"
+        respose = requests.get(url)
+        respose.raise_for_status()
+        soup = BeautifulSoup(respose.content, 'html.parser')
+
+        headlines = []
+        for link in soup.find_all('a', class_='dcr-ezvrjj'):
+            href = 'https://www.theguardian.com' + link['href']
+            headlines.append({'title': link['aria-label'], 'link': href})
+        return headlines
+    except requests.exceptions.RequestException as e:
+        print(f'Error scraping the guardians: {e}')
+        return []
+
 bbc_headlines = bbc_scrapper()
+guardian_headlines = guardian_scrapper()
 
 if bbc_headlines:
     with open("bbc_news.csv", "w", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=bbc_headlines[0].keys())
         writer.writeheader()
         for headline in bbc_headlines:
+            writer.writerow(headline)
+
+if guardian_headlines:
+    with open('guardian_news.csv', 'w', newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=guardian_headlines[0].keys())
+        writer.writeheader()
+        for headline in guardian_headlines:
             writer.writerow(headline)
