@@ -1,6 +1,7 @@
 import requests
 import csv
 from bs4 import BeautifulSoup
+from datetime import date
 
 def bbc_scrapper():
     try:
@@ -37,15 +38,17 @@ def guardian_scrapper():
 bbc_headlines = bbc_scrapper()
 guardian_headlines = guardian_scrapper()
 
+today = date.today().isoformat()
+
 if bbc_headlines:
-    with open("bbc_news.csv", "w", newline="") as file:
+    with open(f"bbc_news-{today}.csv", "w", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=bbc_headlines[0].keys())
         writer.writeheader()
         for headline in bbc_headlines:
             writer.writerow(headline)
 
 if guardian_headlines:
-    with open('guardian_news.csv', 'w', newline="") as file:
+    with open(f'guardian_news-{today}.csv', 'w', newline="") as file:
         writer = csv.DictWriter(file, fieldnames=guardian_headlines[0].keys())
         writer.writeheader()
         for headline in guardian_headlines:
