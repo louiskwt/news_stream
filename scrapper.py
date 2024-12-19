@@ -36,6 +36,6 @@ class Scrapper:
             with open(f"{self.name}-{self.date}.csv", "w", newline="") as file:
                 writer = csv.DictWriter(file, fieldnames=self.headlines[0].keys())
                 writer.writeheader()
-            for headline in self.headlines:
-                writer.writerow(headline)
+                for headline in self.headlines:
+                    writer.writerow(headline)
 
