@@ -15,7 +15,6 @@ def scrap_news():
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         if sys.argv[1] == 'clean':
-            print("Removed old csv")
             remove_csv_files()
         else:
             print("Usage: python main.py | python main.py clean (to remove CSV files)")

@@ -17,6 +17,9 @@ def process_guadian_headlines(link, scrapper):
 def remove_csv_files():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     files = os.listdir(dir_path)
+    file_count = 0
     for file in files:
         if file.endswith(".csv"):
+            file_count += 1
             os.remove(os.path.join(dir_path, file))
+    print(f'Removed {file_count} CSV files')
