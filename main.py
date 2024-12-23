@@ -1,5 +1,6 @@
+import sys
 from scrapper import Scrapper
-from utils import process_bbc_headlines, process_guadian_headlines
+from utils import process_bbc_headlines, process_guadian_headlines, remove_csv_files
 
 def scrap_news():
     bbc_scrapper = Scrapper("https://www.bbc.com/news", "https://www.bbc.com", 'sc-2e6baa30-0 gILusN', 'href', "bbc_news")
@@ -12,4 +13,11 @@ def scrap_news():
     guardian_scrapper.export_news_csv()
 
 if __name__ == '__main__':
-    scrap_news()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'clean':
+            print("Removed old csv")
+            remove_csv_files()
+        else:
+            print("Usage: python main.py | python main.py clean (to remove CSV files)")
+    else:
+        scrap_news()
