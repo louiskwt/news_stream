@@ -7,12 +7,11 @@ class Scrapper:
 
     headlines = None
     
-    def __init__(self, news_url, base_url, class_name, tag, name="news"):
+    def __init__(self, news_url, base_url, class_name, name="news"):
         self.news_url = news_url 
         self.base_url = base_url
         self.name = name
         self.class_name = class_name
-        self.tag = tag
         self.date = date.today().isoformat() 
 
 
