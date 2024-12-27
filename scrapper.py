@@ -24,7 +24,7 @@ class Scrapper:
             headlines = []
             for link in soup.find_all('a', class_=self.class_name):
                 headline = helper(link, self)
-                if headline is not None :
+                if headline is not None:
                     headlines.append(headline)        
             self.headlines = headlines 
         except requests.exceptions.RequestException as e:
