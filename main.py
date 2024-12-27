@@ -17,6 +17,6 @@ if __name__ == '__main__':
         if sys.argv[1] == 'clean':
             remove_csv_files()
         else:
-            print("Usage: python main.py | python main.py clean (to remove CSV files)")
+            print(f"Usage:\npython main.py --> to scrape news\npython main.py clean --> to remove CSV files")
     else:
         scrap_news()
