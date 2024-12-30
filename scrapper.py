@@ -7,12 +7,13 @@ class Scrapper:
 
     headlines = None
     
-    def __init__(self, news_url, base_url, class_name, name="news"):
+    def __init__(self, news_url, base_url, class_name, name="news", parent_tag=None):
         self.news_url = news_url 
         self.base_url = base_url
         self.name = name
         self.class_name = class_name
-        self.date = date.today().isoformat() 
+        self.date = date.today().isoformat()
+        self.parent_tag = parent_tag 
 
 
     def scrape(self, helper=lambda link, scapper: None):
@@ -20,11 +21,21 @@ class Scrapper:
             respose = requests.get(self.news_url)
             respose.raise_for_status()
             soup = BeautifulSoup(respose.content, 'html.parser')
+            links = []
             headlines = []
-            for link in soup.find_all('a', class_=self.class_name):
+            if self.parent_tag:
+                for link_element in soup.find_all(self.parent_tag, class_=self.class_name):
+                    a_tag = link_element.find('a')
+                    if a_tag:
+                        links.append(a_tag)
+            else:
+                links = soup.find_all('a', class_=self.class_name)
+
+            for link in links:
                 headline = helper(link, self)
-                if headline is not None:
+                if headline is not None: 
                     headlines.append(headline)        
+
             self.headlines = headlines 
         except requests.exceptions.RequestException as e:
             print(f'Error scraping {self.name}: {e}')
