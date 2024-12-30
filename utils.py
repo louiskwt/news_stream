@@ -14,6 +14,10 @@ def process_guadian_headlines(link, scrapper):
     href = scrapper.base_url + link['href']
     return {'title': title, 'link': href}
 
+def process_yp_headlines(link, scrapper):
+    href = scrapper.base_url + link['href']
+    return {'title': link.text.strip(), 'link': href}
+
 def remove_csv_files():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     files = os.listdir(dir_path)
